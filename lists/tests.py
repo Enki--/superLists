@@ -105,7 +105,6 @@ class ListViewTest(TestCase):
         self.assertNotContains(response, 'other list item 2')
 
 
-
 class ListAndItemModelsTest(TestCase):
 
     def test_saving_and_retrieving_items(self):
