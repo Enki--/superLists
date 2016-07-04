@@ -20,4 +20,4 @@ from lists import urls as lists_urls
 urlpatterns = [
     url(r'^$', list_views.home_page, name='home'),
     url(r'^lists/', include(lists_urls)),
-    ]
+]
