@@ -1,12 +1,8 @@
-# from django.core.urlresolvers import resolve
-# from django.template.loader import render_to_string
 from django.test import TestCase
-# from django.http import HttpRequest
 from django.utils.html import escape
-from unittest import skip
+
 
 from lists.models import Item, List
-# from lists.views import home_page
 from lists.forms import ItemForm, EMPTY_ITEM_ERROR, DUPLICATE_ITEM_ERROR, ExistingListItemForm
 
 
@@ -39,6 +35,12 @@ class NewListTest(TestCase):
         )
         new_list = List.objects.first()
         self.assertRedirects(response, '/lists/%d/' % (new_list.id,))
+
+    def test_displays_item_form(self):
+        list_ = List.objects.create()
+        response = self.client.get('/lists/%d/' % (list_.id,))
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
+        self.assertContains(response, 'name="text"')
 
     def test_invalid_list_items_arent_saved(self):
         self.client.post('/lists/new', data={'text': ''})
